@@ -14,17 +14,27 @@
             text-align: center;
             color: #333;
             overflow: hidden;
-            height: 100vh; /* Full height for mobile */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         h1, h2 {
             font-family: 'Pacifico', cursive;
             color: #FF6F91;
+            margin: 10px 0;
+            animation: fadeIn 2s;
         }
 
         .page {
             display: none;
             padding: 20px;
+            height: 100%; /* For mobile view */
+            width: 100%;
+            position: absolute;
+            top: 0;
         }
 
         .page.active {
@@ -32,28 +42,29 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100%; /* Full height for mobile compatibility */
+            animation: slideIn 1s;
         }
 
         .polaroids {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 15px;
             margin: 20px auto;
         }
 
         .polaroid {
-            width: 80px;
-            height: 100px;
+            width: 100px;
+            height: 120px;
             transition: transform 0.4s ease-in-out, box-shadow 0.3s;
             cursor: pointer;
-            transform: rotate(-5deg);
+            transform: rotate(-3deg);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             background-color: white;
             padding: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 8px;
         }
 
         .polaroid:hover {
@@ -64,6 +75,7 @@
         .polaroid img {
             max-width: 100%;
             max-height: 100%;
+            border-radius: 5px;
         }
 
         button {
@@ -75,19 +87,19 @@
             cursor: pointer;
             border-radius: 8px;
             margin-top: 20px;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
         }
 
         button:hover {
             background: #FF477E;
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
 
         /* Heart animation */
         @keyframes hearts {
-            0% { transform: translateY(100%); opacity: 0; }
+            0% { transform: translateY(100%) scale(0.6); opacity: 0; }
             50% { opacity: 1; }
-            100% { transform: translateY(-100%); opacity: 0; }
+            100% { transform: translateY(-100%) scale(1); opacity: 0; }
         }
 
         .heart-container {
@@ -98,14 +110,15 @@
             overflow: hidden;
             width: 100%;
             height: 100%;
+            pointer-events: none;
         }
 
         .heart {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             background: #FF6F91;
             position: absolute;
-            animation: hearts 4s infinite;
+            animation: hearts 4s infinite ease-out;
             clip-path: polygon(50% 0%, 100% 35%, 80% 100%, 50% 80%, 20% 100%, 0% 35%);
         }
 
@@ -119,20 +132,31 @@
             background: #FFC1E3;
         }
 
+        /* Keyframes for fade-in and slide-in effects */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(0); }
+        }
+
         /* Responsive for mobile */
         @media (max-width: 600px) {
             .polaroids {
-                grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
             }
 
             .polaroid {
-                width: 60px;
-                height: 80px;
+                width: 80px;
+                height: 100px;
             }
 
             button {
                 font-size: 14px;
-                padding: 8px 20px;
+                padding: 10px 20px;
             }
         }
     </style>
@@ -162,38 +186,4 @@
             <video src="video1.mp4" controls></video>
             <video src="video2.mp4" controls></video>
         </div>
-        <button style="display:none" id="bonusButton" onclick="enterPage3()">Bonus Surprise</button>
-    </div>
-
-    <div id="page3" class="page">
-        <h2>You're Amazing, Keerthana!</h2>
-        <p>You bring so much joy and happiness to everyone around you. Happy Birthday!</p>
-    </div>
-
-    <script>
-        function enterPage2() {
-            document.getElementById("page1").classList.remove("active");
-            document.getElementById("page2").classList.add("active");
-        }
-
-        function unlockVideos() {
-            const password = document.getElementById("passwordInput").value;
-            if (password === "mental") {
-                document.getElementById("videos").style.display = "block";
-                document.getElementById("bonusButton").style.display = "inline-block";
-            } else {
-                alert("Incorrect password. Please try again.");
-            }
-        }
-
-        function enterPage3() {
-            document.getElementById("page2").classList.remove("active");
-            document.getElementById("page3").classList.add("active");
-        }
-
-        function toggleZoom(element) {
-            element.classList.toggle("zoomed");
-        }
-    </script>
-</body>
-</html>
+        <button style="display:none" id="bonusButton
