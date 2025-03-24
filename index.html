@@ -58,3 +58,134 @@
             transition: transform 0.4s ease-in-out, box-shadow 0.3s;
             cursor: pointer;
             transform: rotate(-3deg);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background-color: white;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        .polaroid img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #FF6F91;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #FF477E;
+            transform: scale(1.1);
+        }
+
+        /* Keyframes for fade-in and slide-in effects */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(100%); }
+            100% { transform: translateY(0); }
+        }
+
+        .heart-container {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            width: 40px;
+            height: 40px;
+            background: #FF6F91;
+            position: absolute;
+            animation: hearts 4s infinite ease-out;
+            clip-path: polygon(50% 0%, 100% 35%, 80% 100%, 50% 80%, 20% 100%, 0% 35%);
+        }
+
+        /* Responsive for mobile */
+        @media (max-width: 600px) {
+            .polaroids {
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            }
+
+            .polaroid {
+                width: 80px;
+                height: 100px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="page1" class="page active">
+        <h1>Happy Birthday, Alagiyaee!</h1>
+        <div class="polaroids">
+            <div class="polaroid"><img src="polaroid1.jpg" alt="Polaroid 1"></div>
+            <div class="polaroid"><img src="polaroid2.jpg" alt="Polaroid 2"></div>
+            <div class="polaroid"><img src="polaroid3.jpg" alt="Polaroid 3"></div>
+        </div>
+        <button id="surpriseButton">Enter the Surprise</button>
+    </div>
+
+    <div id="page2" class="page">
+        <h2>Unlock the Magic</h2>
+        <input type="password" id="passwordInput" placeholder="Enter a nickname">
+        <button id="unlockButton">Unlock Videos</button>
+        <div id="videos" style="display:none">
+            <video src="video1.mp4" controls></video>
+            <video src="video2.mp4" controls></video>
+        </div>
+        <button style="display:none" id="bonusButton">Bonus Surprise</button>
+    </div>
+
+    <div id="page3" class="page">
+        <h2>You're Amazing, Keerthana!</h2>
+        <p>You bring so much joy and happiness to everyone around you. Happy Birthday!</p>
+    </div>
+
+    <script>
+        document.getElementById("surpriseButton").addEventListener("click", function() {
+            document.getElementById("page1").classList.remove("active");
+            document.getElementById("page2").classList.add("active");
+        });
+
+        document.getElementById("unlockButton").addEventListener("click", function() {
+            const password = document.getElementById("passwordInput").value;
+            if (password === "mental") {
+                document.getElementById("videos").style.display = "block";
+                document.getElementById("bonusButton").style.display = "inline-block";
+            } else {
+                alert("Incorrect password. Please try again.");
+            }
+        });
+
+        document.getElementById("bonusButton").addEventListener("click", function() {
+            document.getElementById("page2").classList.remove("active");
+            document.getElementById("page3").classList.add("active");
+        });
+    </script>
+</body>
+</html>
