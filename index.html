@@ -47,15 +47,15 @@
 
         .polaroids {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Wide horizontal frames */
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjusted for large portrait frames */
             gap: 20px;
             margin: 20px auto;
             max-width: 90%;
         }
 
         .polaroid {
-            width: 300px; /* 9:16 horizontal ratio */
-            height: 169px;
+            width: 200px; /* Vertical (portrait) style */
+            height: 300px; /* Enlarged size */
             transition: transform 0.4s ease-in-out, box-shadow 0.3s;
             cursor: pointer;
             transform: rotate(-2deg);
@@ -65,19 +65,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 12px; /* Smooth rounded edges */
+            border-radius: 12px; /* Smooth corners for modern look */
         }
 
         .polaroid:hover {
-            transform: scale(1.05) rotate(0deg); /* Hover effect */
+            transform: scale(1.05) rotate(0deg); /* Adds an appealing hover effect */
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
         }
 
         .polaroid img {
-            width: 100%; /* Ensures 9:16 aspect ratio */
+            width: 100%; /* Ensures image fits frame dimensions */
             height: 100%;
-            object-fit: cover; /* Keeps image proportions while filling the frame */
-            border-radius: 8px;
+            object-fit: cover; /* Keeps proportions while filling the frame */
+            border-radius: 8px; /* Smooth image corners */
         }
 
         button {
@@ -111,12 +111,12 @@
 
         @media (max-width: 768px) {
             .polaroids {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Adjusted for smaller screens */
             }
 
             .polaroid {
-                width: 240px;
-                height: 135px;
+                width: 150px;
+                height: 225px;
             }
 
             button {
@@ -131,13 +131,13 @@
 
         @media (max-width: 480px) {
             .polaroids {
-                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Very small devices */
                 gap: 10px;
             }
 
             .polaroid {
-                width: 180px;
-                height: 101px;
+                width: 120px;
+                height: 180px;
             }
 
             button {
