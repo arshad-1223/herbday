@@ -48,6 +48,7 @@
             overflow-y: auto;
             position: absolute;
             top: 0;
+            left: 0;
             padding: 20px;
             box-sizing: border-box;
             text-align: center;
@@ -176,6 +177,7 @@
             document.getElementById(nextPage).classList.add('active');
         }
 
+        // Navigation logic
         document.getElementById('toPage2').addEventListener('click', () => navigateTo('page2'));
         document.getElementById('toPage3').addEventListener('click', () => {
             const password = document.getElementById('passwordInput').value;
