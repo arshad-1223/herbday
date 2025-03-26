@@ -13,7 +13,7 @@
             background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
             color: #333;
             height: 100vh;
-            overflow: auto; /* Enable scrolling */
+            overflow: auto;
             display: flex;
             justify-content: center;
         }
@@ -110,7 +110,6 @@
             transform: scale(1);
         }
 
-        /* Heart animation */
         .hearts-container {
             position: absolute;
             top: 0;
@@ -170,7 +169,7 @@
 
         #videos video {
             width: 80%;
-            aspect-ratio: 9 / 16; /* 9:16 vertical videos */
+            aspect-ratio: 9 / 16;
             margin: 10px 0;
         }
 
@@ -199,7 +198,6 @@
     </style>
 </head>
 <body>
-    <!-- Page 1: Polaroids -->
     <div id="page1" class="page active">
         <div class="scrollable-container">
             <h1>Happy Birthday, Alagiyaee!</h1>
@@ -213,7 +211,6 @@
         </div>
     </div>
 
-    <!-- Page 2: Romantic Animation -->
     <div id="page2" class="page">
         <h2>Unlock the Magic</h2>
         <input type="password" id="passwordInput" placeholder="Enter the password">
@@ -226,7 +223,6 @@
         </div>
     </div>
 
-    <!-- Page 3: Video Playback -->
     <div id="page3" class="page">
         <h2>Enjoy the Videos!</h2>
         <div id="videos">
@@ -236,36 +232,41 @@
         <button id="bonusButton">Bonus Surprise</button>
     </div>
 
-    <!-- Page 4: Final Surprise -->
     <div id="page4" class="page">
         <h2>You're Amazing, Keerthana!</h2>
         <p>You bring so much joy and happiness to everyone around you. Happy Birthday!</p>
     </div>
 
     <script>
-        // Handle page navigation with animations
         function showPage(fromPage, toPage) {
-            const fromPageElement = document.getElementById(fromPage);
-            const toPageElement = document.getElementById(toPage);
-
-            // Ensure the current page is transitioning out
-            fromPageElement.style.opacity = "0";
-            fromPageElement.style.transform = "scale(0.9)";
-
-            // Wait for transition to complete before hiding the current page
+            document.getElementById(fromPage).style.opacity = "0";
+            document.getElementById(fromPage).style.transform = "scale(0.9)";
             setTimeout(() => {
-                fromPageElement.style.display = "none"; // Hide the current page
-                toPageElement.style.display = "flex"; // Show the new page
+                document.getElementById(fromPage).style.display = "none";
+                document.getElementById(toPage).style.display = "flex";
                 setTimeout(() => {
-                    toPageElement.style.opacity = "1";
-                    toPageElement.style.transform = "scale(1)";
+                    document.getElementById(toPage).style.opacity = "1";
+                    document.getElementById(toPage).style.transform = "scale(1)";
                 }, 10);
             }, 500);
         }
 
-        // Navigate from Page 1 to Page 2
         document.getElementById("surpriseButton").addEventListener("click", function () {
             showPage("page1", "page2");
         });
 
-        // Navigate from Page 2 to
+        document.getElementById("unlockButton").addEventListener("click", function () {
+            const password = document.getElementById("passwordInput").value;
+            if (password === "mental") {
+                showPage("page2", "page3");
+            } else {
+                alert("Incorrect password! Please try again.");
+            }
+        });
+
+        document.getElementById("bonusButton").addEventListener("click", function () {
+            showPage("page3", "page4");
+        });
+    </script>
+</body>
+</html>
