@@ -12,8 +12,8 @@
             padding: 0;
             background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
             color: #333;
-            overflow: hidden;
             height: 100vh;
+            overflow: hidden;
             display: flex;
             justify-content: center;
         }
@@ -21,7 +21,7 @@
         .scrollable-container {
             width: 100%;
             height: 100%;
-            overflow-y: auto; /* Enable vertical scrolling */
+            overflow-y: auto; /* Enables scrolling */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -32,21 +32,20 @@
             color: #FF6F91;
             margin-top: 20px;
             font-size: 2rem;
-            text-align: center;
         }
 
         .polaroids {
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Stack polaroids vertically */
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             margin: 20px auto;
             width: 90%;
         }
 
         .polaroid {
-            width: 180px;
-            height: 270px;
+            width: 80%; /* Wider for mobile responsiveness */
+            aspect-ratio: 4 / 5; /* Ensures the 4:5 ratio */
             background-color: white;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             padding: 10px;
@@ -89,13 +88,25 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
         }
 
+        .page {
+            display: none;
+            padding: 20px;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+        }
+
+        .page.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8rem;
-            }
-            .polaroid {
-                width: 150px;
-                height: 225px;
             }
             button {
                 font-size: 16px;
@@ -108,8 +119,7 @@
                 font-size: 1.5rem;
             }
             .polaroid {
-                width: 120px;
-                height: 180px;
+                width: 100%; /* Full width for small screens */
             }
             button {
                 font-size: 14px;
@@ -119,21 +129,65 @@
     </style>
 </head>
 <body>
-    <div class="scrollable-container">
-        <h1>Happy Birthday, Alagiyaee!</h1>
-        <div class="polaroids">
-            <div class="polaroid"><img src="polaroid1.jpg" alt="Polaroid 1"></div>
-            <div class="polaroid"><img src="polaroid2.jpg" alt="Polaroid 2"></div>
-            <div class="polaroid"><img src="polaroid3.jpg" alt="Polaroid 3"></div>
-            <div class="polaroid"><img src="polaroid4.jpg" alt="Polaroid 4"></div>
+    <!-- Page 1: Polaroids -->
+    <div id="page1" class="page active">
+        <div class="scrollable-container">
+            <h1>Happy Birthday, Alagiyaee!</h1>
+            <div class="polaroids">
+                <div class="polaroid"><img src="polaroid1.jpg" alt="Polaroid 1"></div>
+                <div class="polaroid"><img src="polaroid2.jpg" alt="Polaroid 2"></div>
+                <div class="polaroid"><img src="polaroid3.jpg" alt="Polaroid 3"></div>
+                <div class="polaroid"><img src="polaroid4.jpg" alt="Polaroid 4"></div>
+            </div>
+            <button id="surpriseButton">Enter the Surprise</button>
         </div>
-        <button id="surpriseButton">Enter the Surprise</button>
+    </div>
+
+    <!-- Page 2: Password Entry -->
+    <div id="page2" class="page">
+        <h1>Unlock the Magic</h1>
+        <input type="password" id="passwordInput" placeholder="Enter the password">
+        <button id="unlockButton">Unlock Videos</button>
+    </div>
+
+    <!-- Page 3: Video Playback -->
+    <div id="page3" class="page">
+        <h1>Enjoy the Videos!</h1>
+        <div id="videos">
+            <video id="video1" src="video1.mp4" controls></video>
+            <video id="video2" src="video2.mp4" controls></video>
+        </div>
+        <button id="bonusButton">Bonus Surprise</button>
+    </div>
+
+    <!-- Page 4: Final Surprise -->
+    <div id="page4" class="page">
+        <h1>You're Amazing, Keerthana!</h1>
+        <p>You bring so much joy and happiness to everyone around you. Happy Birthday!</p>
     </div>
 
     <script>
-        document.getElementById("surpriseButton").addEventListener("click", function() {
-            alert("Surprise button clicked!");
-            // Add your navigation logic here if needed
+        // Navigate from Page 1 to Page 2
+        document.getElementById("surpriseButton").addEventListener("click", function () {
+            document.getElementById("page1").classList.remove("active");
+            document.getElementById("page2").classList.add("active");
+        });
+
+        // Navigate from Page 2 to Page 3 (if the correct password is entered)
+        document.getElementById("unlockButton").addEventListener("click", function () {
+            const password = document.getElementById("passwordInput").value;
+            if (password === "mental") {
+                document.getElementById("page2").classList.remove("active");
+                document.getElementById("page3").classList.add("active");
+            } else {
+                alert("Incorrect password. Please try again.");
+            }
+        });
+
+        // Navigate from Page 3 to Page 4
+        document.getElementById("bonusButton").addEventListener("click", function () {
+            document.getElementById("page3").classList.remove("active");
+            document.getElementById("page4").classList.add("active");
         });
     </script>
 </body>
