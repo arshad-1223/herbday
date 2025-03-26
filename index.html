@@ -13,7 +13,7 @@
             background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
             color: #333;
             height: 100vh;
-            overflow: hidden;
+            overflow: auto; /* Fixed scrolling */
             display: flex;
             justify-content: center;
         }
@@ -91,11 +91,14 @@
 
         .page {
             display: none;
+            opacity: 0;
+            transform: scale(0.9);
             padding: 20px;
             height: 100%;
             width: 100%;
             position: absolute;
             top: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s;
         }
 
         .page.active {
@@ -103,7 +106,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            position: relative;
+            opacity: 1;
+            transform: scale(1);
         }
 
         /* Heart animation */
@@ -239,28 +243,26 @@
     </div>
 
     <script>
+        // Handle page navigation with animations
+        function showPage(fromPage, toPage) {
+            document.getElementById(fromPage).style.opacity = "0";
+            document.getElementById(fromPage).style.transform = "scale(0.9)";
+            setTimeout(() => {
+                document.getElementById(fromPage).style.display = "none";
+                document.getElementById(toPage).style.display = "flex";
+                setTimeout(() => {
+                    document.getElementById(toPage).style.opacity = "1";
+                    document.getElementById(toPage).style.transform = "scale(1)";
+                }, 10);
+            }, 500);
+        }
+
         // Navigate from Page 1 to Page 2
         document.getElementById("surpriseButton").addEventListener("click", function () {
-            document.getElementById("page1").classList.remove("active");
-            document.getElementById("page2").classList.add("active");
+            showPage("page1", "page2");
         });
 
         // Navigate from Page 2 to Page 3 (if the correct password is entered)
         document.getElementById("unlockButton").addEventListener("click", function () {
             const password = document.getElementById("passwordInput").value;
-            if (password === "mental") {
-                document.getElementById("page2").classList.remove("active");
-                document.getElementById("page3").classList.add("active");
-            } else {
-                alert("Incorrect password. Please try again.");
-            }
-        });
-
-        // Navigate from Page 3 to Page 4
-        document.getElementById("bonusButton").addEventListener("click", function () {
-            document.getElementById("page3").classList.remove("active");
-            document.getElementById("page4").classList.add("active");
-        });
-    </script>
-</body>
-</html>
+            if (password === "
