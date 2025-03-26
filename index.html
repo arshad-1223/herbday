@@ -13,32 +13,64 @@
             background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
             color: #333;
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow: hidden;
         }
 
-        h1, h2 {
+        h1, h2, p {
             font-family: 'Pacifico', cursive;
             color: #FF6F91;
-            margin: 15px 0;
-            font-size: 2.2rem;
+            text-align: center;
+            margin: 15px 20px;
+        }
+
+        button {
+            background: #FF6F91;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin: 20px auto;
+            display: block;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background: #FF477E;
+            transform: scale(1.05);
+        }
+
+        .page {
+            width: 100%;
+            height: 100%;
+            display: none;
+            overflow-y: auto;
+            position: absolute;
+            top: 0;
+            padding: 20px;
+            box-sizing: border-box;
             text-align: center;
         }
 
+        .page.active {
+            display: block;
+        }
+
         .polaroids {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 15px;
-            margin: 20px auto;
-            width: 90%;
+            margin: auto;
         }
 
         .polaroid {
+            width: 150px;
             aspect-ratio: 4 / 5;
             background-color: white;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s;
         }
@@ -54,55 +86,13 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
 
-        button {
-            background: #FF6F91;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 8px;
-            margin: 20px;
-            transition: all 0.3s ease;
-        }
-
-        button:hover {
-            background: #FF477E;
-        }
-
-        .horizontal-layout {
-            display: flex;
-            flex-direction: row;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        #passwordInput {
-            width: 70%;
-            font-size: 14px;
-            padding: 10px;
-            border: 2px solid #FF6F91;
-            border-radius: 8px;
-        }
-
-        #unlockButton {
-            font-size: 14px;
-            padding: 10px;
-        }
-
         #videos video {
-            width: 100%;
-            max-width: 300px;
+            width: 90%;
+            max-width: 400px;
             margin: 10px auto;
             aspect-ratio: 9 / 16;
             border-radius: 10px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        #bonusButton {
-            padding: 8px 15px;
-            font-size: 14px;
-            margin-top: 10px;
         }
 
         @media (max-width: 768px) {
@@ -110,21 +100,17 @@
                 font-size: 1.8rem;
             }
 
-            .polaroids {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            }
-
-            .horizontal-layout {
-                flex-direction: column;
+            .polaroid {
+                width: 120px;
             }
 
             button {
                 font-size: 14px;
-                padding: 8px 12px;
+                padding: 10px 15px;
             }
 
             #videos video {
-                max-width: 250px;
+                max-width: 300px;
             }
         }
 
@@ -133,21 +119,17 @@
                 font-size: 1.5rem;
             }
 
-            .polaroids {
-                grid-template-columns: 1fr;
-            }
-
-            #passwordInput {
-                width: 100%;
+            .polaroid {
+                width: 100px;
             }
 
             button {
                 font-size: 12px;
-                padding: 6px 10px;
+                padding: 8px 12px;
             }
 
             #videos video {
-                max-width: 200px;
+                max-width: 250px;
             }
         }
     </style>
@@ -155,35 +137,31 @@
 <body>
     <!-- Page 1 -->
     <div id="page1" class="page active">
-        <div class="scrollable-container">
-            <h1>Happy Birthday, Alagiyaee!</h1>
-            <div class="polaroids">
-                <div class="polaroid"><img src="polaroid1.jpg" alt="Polaroid 1"></div>
-                <div class="polaroid"><img src="polaroid2.jpg" alt="Polaroid 2"></div>
-                <div class="polaroid"><img src="polaroid3.jpg" alt="Polaroid 3"></div>
-                <div class="polaroid"><img src="polaroid4.jpg" alt="Polaroid 4"></div>
-            </div>
-            <button id="surpriseButton">Enter the Surprise</button>
+        <h1>Happy Birthday, Alagiyaee!</h1>
+        <div class="polaroids">
+            <div class="polaroid"><img src="polaroid1.jpg" alt="Polaroid 1"></div>
+            <div class="polaroid"><img src="polaroid2.jpg" alt="Polaroid 2"></div>
+            <div class="polaroid"><img src="polaroid3.jpg" alt="Polaroid 3"></div>
+            <div class="polaroid"><img src="polaroid4.jpg" alt="Polaroid 4"></div>
         </div>
+        <button id="toPage2">Enter the Surprise</button>
     </div>
 
     <!-- Page 2 -->
     <div id="page2" class="page">
         <h2>Unlock the Magic</h2>
-        <div class="horizontal-layout">
-            <input type="password" id="passwordInput" placeholder="Enter the password">
-            <button id="unlockButton">Unlock Videos</button>
-        </div>
+        <input type="password" id="passwordInput" placeholder="Enter the password" style="margin: 10px auto; padding: 10px; font-size: 16px; width: 80%; border-radius: 8px; border: 2px solid #FF6F91;">
+        <button id="toPage3">Unlock Videos</button>
     </div>
 
     <!-- Page 3 -->
     <div id="page3" class="page">
         <h2>Enjoy the Videos!</h2>
         <div id="videos">
-            <video id="video1" src="video1.mp4" controls></video>
-            <video id="video2" src="video2.mp4" controls></video>
+            <video src="video1.mp4" controls></video>
+            <video src="video2.mp4" controls></video>
         </div>
-        <button id="bonusButton">Bonus Surprise</button>
+        <button id="toPage4">Bonus Surprise</button>
     </div>
 
     <!-- Page 4 -->
@@ -193,31 +171,21 @@
     </div>
 
     <script>
-        function showPage(fromPage, toPage) {
-            document.getElementById(fromPage).style.opacity = "0";
-            setTimeout(() => {
-                document.getElementById(fromPage).style.display = "none";
-                document.getElementById(toPage).style.display = "flex";
-                document.getElementById(toPage).style.opacity = "1";
-            }, 500);
+        function navigateTo(nextPage) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(nextPage).classList.add('active');
         }
 
-        document.getElementById("surpriseButton").addEventListener("click", function () {
-            showPage("page1", "page2");
-        });
-
-        document.getElementById("unlockButton").addEventListener("click", function () {
-            const password = document.getElementById("passwordInput").value;
-            if (password === "mental") {
-                showPage("page2", "page3");
+        document.getElementById('toPage2').addEventListener('click', () => navigateTo('page2'));
+        document.getElementById('toPage3').addEventListener('click', () => {
+            const password = document.getElementById('passwordInput').value;
+            if (password === 'mental') {
+                navigateTo('page3');
             } else {
-                alert("Incorrect password! Please try again.");
+                alert('Incorrect password! Please try again.');
             }
         });
-
-        document.getElementById("bonusButton").addEventListener("click", function () {
-            showPage("page3", "page4");
-        });
+        document.getElementById('toPage4').addEventListener('click', () => navigateTo('page4'));
     </script>
 </body>
 </html>
