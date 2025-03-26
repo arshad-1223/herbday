@@ -13,39 +13,42 @@
             background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
             color: #333;
             height: 100vh;
-            overflow: auto;
             display: flex;
             justify-content: center;
+            align-items: center;
+        }
+
+        .scrollable-container {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h1, h2 {
             font-family: 'Pacifico', cursive;
             color: #FF6F91;
-            margin: 20px 0;
-            font-size: 2rem;
+            margin: 15px 0;
+            font-size: 2.2rem;
             text-align: center;
         }
 
         .polaroids {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
             margin: 20px auto;
             width: 90%;
         }
 
         .polaroid {
-            width: 200px; /* Adjusted for mobile-friendly layout */
             aspect-ratio: 4 / 5;
             background-color: white;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             border-radius: 12px;
             overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             transition: transform 0.3s ease, box-shadow 0.3s;
         }
 
@@ -56,7 +59,7 @@
         }
 
         .polaroid:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
 
@@ -68,7 +71,7 @@
             font-size: 16px;
             cursor: pointer;
             border-radius: 8px;
-            margin-top: 20px;
+            margin: 20px;
             transition: all 0.3s ease;
         }
 
@@ -76,48 +79,85 @@
             background: #FF477E;
         }
 
-        .page {
-            display: none;
-            opacity: 0;
-            transform: scale(0.9);
-            padding: 20px;
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            transition: opacity 0.5s ease-in-out, transform 0.5s;
-        }
-
-        .page.active {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 1;
-            transform: scale(1);
-        }
-
         .horizontal-layout {
             display: flex;
             flex-direction: row;
-            align-items: center;
-            justify-content: center;
             gap: 10px;
-            width: 100%;
+            justify-content: center;
         }
 
         #passwordInput {
-            width: 60%;
-            font-size: 16px;
-            padding: 8px;
+            width: 70%;
+            font-size: 14px;
+            padding: 10px;
             border: 2px solid #FF6F91;
             border-radius: 8px;
-            box-sizing: border-box;
         }
 
         #unlockButton {
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        #videos video {
+            width: 100%;
+            max-width: 300px;
+            margin: 10px auto;
+            aspect-ratio: 9 / 16;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #bonusButton {
             padding: 8px 15px;
             font-size: 14px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            h1, h2 {
+                font-size: 1.8rem;
+            }
+
+            .polaroids {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .horizontal-layout {
+                flex-direction: column;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+
+            #videos video {
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1, h2 {
+                font-size: 1.5rem;
+            }
+
+            .polaroids {
+                grid-template-columns: 1fr;
+            }
+
+            #passwordInput {
+                width: 100%;
+            }
+
+            button {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            #videos video {
+                max-width: 200px;
+            }
         }
     </style>
 </head>
@@ -164,23 +204,17 @@
     <script>
         function showPage(fromPage, toPage) {
             document.getElementById(fromPage).style.opacity = "0";
-            document.getElementById(fromPage).style.transform = "scale(0.9)";
             setTimeout(() => {
                 document.getElementById(fromPage).style.display = "none";
                 document.getElementById(toPage).style.display = "flex";
-                setTimeout(() => {
-                    document.getElementById(toPage).style.opacity = "1";
-                    document.getElementById(toPage).style.transform = "scale(1)";
-                }, 10);
+                document.getElementById(toPage).style.opacity = "1";
             }, 500);
         }
 
-        // Navigate from Page 1 to Page 2
         document.getElementById("surpriseButton").addEventListener("click", function () {
             showPage("page1", "page2");
         });
 
-        // Navigate from Page 2 to Page 3
         document.getElementById("unlockButton").addEventListener("click", function () {
             const password = document.getElementById("passwordInput").value;
             if (password === "mental") {
@@ -190,10 +224,10 @@
             }
         });
 
-        // Navigate from Page 3 to Page 4
         document.getElementById("bonusButton").addEventListener("click", function () {
             showPage("page3", "page4");
         });
     </script>
 </body>
 </html>
+
