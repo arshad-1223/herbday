@@ -13,7 +13,7 @@
             background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
             color: #333;
             height: 100vh;
-            overflow: auto; /* Fixed scrolling */
+            overflow: auto; /* Enable scrolling */
             display: flex;
             justify-content: center;
         }
@@ -245,14 +245,20 @@
     <script>
         // Handle page navigation with animations
         function showPage(fromPage, toPage) {
-            document.getElementById(fromPage).style.opacity = "0";
-            document.getElementById(fromPage).style.transform = "scale(0.9)";
+            const fromPageElement = document.getElementById(fromPage);
+            const toPageElement = document.getElementById(toPage);
+
+            // Ensure the current page is transitioning out
+            fromPageElement.style.opacity = "0";
+            fromPageElement.style.transform = "scale(0.9)";
+
+            // Wait for transition to complete before hiding the current page
             setTimeout(() => {
-                document.getElementById(fromPage).style.display = "none";
-                document.getElementById(toPage).style.display = "flex";
+                fromPageElement.style.display = "none"; // Hide the current page
+                toPageElement.style.display = "flex"; // Show the new page
                 setTimeout(() => {
-                    document.getElementById(toPage).style.opacity = "1";
-                    document.getElementById(toPage).style.transform = "scale(1)";
+                    toPageElement.style.opacity = "1";
+                    toPageElement.style.transform = "scale(1)";
                 }, 10);
             }, 500);
         }
@@ -263,6 +269,4 @@
         });
 
         // Navigate from Page 2 to Page 3 (if the correct password is entered)
-        document.getElementById("unlockButton").addEventListener("click", function () {
-            const password = document.getElementById("passwordInput").value;
-            if (password === "
+        document.getElementById("unlockButton").addEventListener("click
