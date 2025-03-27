@@ -13,7 +13,7 @@
             background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
             color: #333;
             height: 100vh;
-            overflow: hidden; /* Prevent unexpected horizontal scrolling */
+            overflow: hidden;
         }
 
         h1 {
@@ -63,17 +63,17 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            margin: 0 auto;
-            padding-bottom: 20px; /* Add some padding at the bottom */
+            gap: 20px; /* Increased spacing for better visibility */
+            margin: auto;
+            padding-bottom: 20px; /* Add padding at the bottom */
         }
 
         .polaroid {
-            width: 200px; /* Adjusted width */
+            width: 250px; /* Larger size for a cute mobile ratio */
             aspect-ratio: 4 / 5; /* Maintain 4:5 aspect ratio */
             background-color: white;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s;
         }
@@ -89,18 +89,31 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
 
+        #videos video {
+            width: 90%;
+            max-width: 400px;
+            margin: 10px auto;
+            aspect-ratio: 9 / 16;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8rem;
             }
 
             .polaroid {
-                width: 150px;
+                width: 200px; /* Adjusted size for tablets/small screens */
             }
 
             button {
                 font-size: 14px;
                 padding: 10px 15px;
+            }
+
+            #videos video {
+                max-width: 300px;
             }
         }
 
@@ -110,12 +123,16 @@
             }
 
             .polaroid {
-                width: 120px;
+                width: 180px; /* Mobile-friendly size */
             }
 
             button {
                 font-size: 12px;
                 padding: 8px 12px;
+            }
+
+            #videos video {
+                max-width: 250px;
             }
         }
     </style>
