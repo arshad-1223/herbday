@@ -14,6 +14,7 @@
             color: #333;
             height: 100vh;
             overflow: hidden;
+            cursor: default;
         }
 
         h1, h2 {
@@ -59,6 +60,7 @@
             display: block;
         }
 
+        /* Polaroid Gallery - Page 1 */
         .polaroids {
             display: flex;
             flex-wrap: wrap;
@@ -76,6 +78,8 @@
             border-radius: 12px;
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s;
+            position: relative;
+            cursor: pointer;
         }
 
         .polaroid img {
@@ -85,8 +89,47 @@
         }
 
         .polaroid:hover {
-            transform: scale(1.05);
+            transform: rotate(-2deg) scale(1.05);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .polaroid::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 111, 145, 0);
+            transition: background 0.3s;
+        }
+
+        .polaroid.active::after {
+            background: rgba(255, 111, 145, 0.3);
+        }
+
+        .polaroid-emoji {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 40px;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .polaroid.active .polaroid-emoji {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        /* Videos - Page 3 */
+        #videos {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
 
         #videos video {
@@ -96,36 +139,14 @@
             aspect-ratio: 9 / 16;
             border-radius: 10px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
         }
 
-        /* New styles for Page 4 */
-        #page4-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        #videos video:hover {
+            transform: scale(1.03);
         }
 
-        #page4 p {
-            line-height: 1.8;
-            text-align: left;
-            font-size: 16px;
-        }
-
-        .heart {
-            position: absolute;
-            pointer-events: none;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(10deg); }
-        }
-
-        /* Password page styling */
+        /* Password Page - Page 2 */
         .password-container {
             max-width: 400px;
             margin: 0 auto;
@@ -142,8 +163,84 @@
             border: 2px solid #FF6F91;
             border-radius: 8px;
             font-size: 16px;
+            transition: all 0.3s;
         }
 
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+
+        /* Message Page - Page 4 */
+        #page4-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        #page4 p {
+            line-height: 1.8;
+            text-align: left;
+            font-size: 16px;
+            opacity: 0;
+        }
+
+        /* Hearts Animation */
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: float 4s ease-in-out infinite;
+            font-size: 20px;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        /* Mini Hearts (for password success) */
+        .mini-heart {
+            position: absolute;
+            animation: mini-float 2s ease-in forwards;
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        @keyframes mini-float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Typewriter Effect */
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid #FF6F91;
+            white-space: pre-wrap;
+            margin: 0 auto;
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #FF6F91; }
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             h1, h2 {
                 font-size: 1.8rem;
@@ -188,30 +285,43 @@
     </style>
 </head>
 <body>
-    <!-- Floating hearts (new element) -->
+    <!-- Floating hearts container -->
     <div id="hearts-container"></div>
 
-    <!-- Page 1 -->
+    <!-- Page 1: Photo Gallery -->
     <div id="page1" class="page active">
         <h1>Happy Birthday Alagiyaee</h1>
         <div class="polaroids">
-            <div class="polaroid"><img src="polaroid1.jpg" alt="Polaroid 1"></div>
-            <div class="polaroid"><img src="polaroid2.jpg" alt="Polaroid 2"></div>
-            <div class="polaroid"><img src="polaroid3.jpg" alt="Polaroid 3"></div>
-            <div class="polaroid"><img src="polaroid4.jpg" alt="Polaroid 4"></div>
-            <div class="polaroid"><img src="polaroid5.jpg" alt="polaroid 5"></div>
-            <div class="polaroid"><img src="polaroid6.jpg" alt="polaroid 6"></div>
-            <div class="polaroid"><img src="polaroid7.jpg" alt="Polaroid 7"></div>
-            <div class="polaroid"><img src="polaroid8.jpg" alt="Polaroid 8"></div>
-            <div class="polaroid"><img src="polaroid9.jpg" alt="Polaroid 9"></div>
-            <div class="polaroid"><img src="polaroid10.jpg" alt="Polaroid 10"></div>
-            <div class="polaroid"><img src="polaroid11.jpg" alt="polaroid 11"></div>
-            <div class="polaroid"><img src="polaroid12.jpg" alt="polaroid 12"></div> 
+            <!-- Polaroids with click interaction -->
+            <div class="polaroid" onclick="activatePolaroid(this)">
+                <img src="polaroid1.jpg" alt="Polaroid 1">
+                <div class="polaroid-emoji">❤️</div>
+            </div>
+            <div class="polaroid" onclick="activatePolaroid(this)">
+                <img src="polaroid2.jpg" alt="Polaroid 2">
+                <div class="polaroid-emoji">😊</div>
+            </div>
+            <div class="polaroid" onclick="activatePolaroid(this)">
+                <img src="polaroid3.jpg" alt="Polaroid 3">
+                <div class="polaroid-emoji">🥰</div>
+            </div>
+            <div class="polaroid" onclick="activatePolaroid(this)">
+                <img src="polaroid4.jpg" alt="Polaroid 4">
+                <div class="polaroid-emoji">🎉</div>
+            </div>
+            <div class="polaroid" onclick="activatePolaroid(this)">
+                <img src="polaroid5.jpg" alt="Polaroid 5">
+                <div class="polaroid-emoji">💕</div>
+            </div>
+            <div class="polaroid" onclick="activatePolaroid(this)">
+                <img src="polaroid6.jpg" alt="Polaroid 6">
+                <div class="polaroid-emoji">✨</div>
+            </div>
         </div>
         <button id="toPage2">Enter the Surprise</button>
     </div>
 
-    <!-- Page 2 -->
+    <!-- Page 2: Password -->
     <div id="page2" class="page">
         <div class="password-container">
             <h2>Enter your first nickname</h2>
@@ -221,18 +331,16 @@
         </div>
     </div>
 
-    <!-- Page 3 -->
+    <!-- Page 3: Videos -->
     <div id="page3" class="page">
         <h2>HAPPY DAYS</h2>
         <div id="videos">
-            <video src="video1.mp4" controls></video>
+            <video src="video1.mp4" controls autoplay muted></video>
             <video src="video2.mp4" controls></video>
             <video src="video3.mp4" controls></video>
-            <video src="video4.mp4" controls></video>
-            <video src="video5.mp4" controls></video>
         </div>
         
-        <!-- New password input for Page 4 -->
+        <!-- Password for Page 4 -->
         <div class="password-container" style="margin-top: 30px;">
             <h3>One more secret for you</h3>
             <input type="password" id="page4Password" placeholder="Enter our special word">
@@ -241,86 +349,182 @@
         </div>
     </div>
 
-    <!-- Page 4 -->
+    <!-- Page 4: Message -->
     <div id="page4" class="page">
         <h2>Happy birthday Yen Alagiyaee</h2>
         <div id="page4-content">
-            <p>Happy birthday Yen alagiyaeeee💗 Many more happy bdayyyyy ❤, Happyaaa iruga☺, I don't know ena soldrade therla 😅, I think this msg won't end like a bday msg 🙂. I literally don't feel happy without your presence , satiyama avlo sirucha jollya irunda in the end Oru mariiii uruthite iruku ni pesama irukuradu . Literally avlo think pandra daily adhula unaku teriyadu , podra story like podra reels ellame related ah Vera varum . Oru mari heart heavy ah iruku inda msg la konjo erakiduva😅😂. I dont know yen inda sanda nu . Ni sona words . 1. Inimey ni8 pesika vena, 2. Respect panala 3. Importance tarala nu indirect ah , then na soli ni kuduka kudadu soldra . Promise ah idhu 3 me enala accept pana mudila , importance tarala , how can I accept 😂 na unkita pesradu mattum ta ni pakra . Oru naaliku una pathi evlo think panuva teriyadu 😮‍💨, day by day adu habit aaiduchu unaa pathu yartachu pesradu🙃 , my whole class know your name , oru girl kita un name soldra , ava kekra epo pathulum ava name soliyae ellartayum pesra nu 🫠. 2. Respect panala - ni sonanu yarkitaychu sona siripaga 😂. You really seeing my half side , epome una pathi ta enachu yosipan . Oru person ah value pandraduku text , meeting idula kedaiyadu Enaku teruju , you have to feel the presence . I feel your presence ni ilatiyum na feel panuva . Unaku kandipa en alavuku feel agadu adu mattum teriyum 😂 . Evlo Naal ni epd irunda teriyadu , may be konjo hurt aagirkala but en alavuku aairka matta coz you can fill my time and presence with someone's . I don't have anyone. And i dont want . Unaku ena Vda better peoples evlovo irukaga nalladu ta ✨inda msg una kova ta aakum Enaku teriyum 😂. Literally painful ah iruku nenachu nenachu alura. Yen IPd pesama irukanu. Ipo eluda poda kuda 😂 . 10000 or evlo sorry keka kuda na ready but doesn't value me or heal you . Un reasons enala lifetime accept pana mudiyadu . Epome soldradu ta unkita pesama ta irupa una pathi nenaikama irundade ila . Na alura nu ni pesiduva sometimes adu Enaku vena . This time I'll accept your wish , yen presence ta una hurt panudu na . I won't hurt you anymore . Ipo kuda heart feels heavy valikudu🤣( Real time scenario ) Sorry en feel share panitu iruka un bday msg la (her mind voice : Adan ivlo panitiyae apro ena ) . But onething na pesama irukuradu ego va la ila promisgly , na pesi una again hurt pana virumbala unaku ipd irukuradu ta happya iruku na okay , be happy 💗 (hermindvoice : un puranam kada la yarum inga kekala 😂) and Happyyyy birthday , Remember one idiot is Always loving you , I can't hate you . I just didn't accept your reasons that doesn't Mean i hate you , and I'll always love yewwwww alagiyaeee 💕( you thinks like I'm avoid you sometimes , your the last person , no one will receive this much love from me . ❤😅🙂) and one thing inda msg idhula pathu mattum pesirada pls 😊I'll always love you in different way there is no one loves you like that ..once again Happy birthday keerthana 🥳 💕</p>
+            <p id="typewriter-text"></p>
         </div>
-        
-        <!-- Back button to return to videos -->
         <button id="backToPage3" style="background: #6F91FF;">Back to Videos</button>
     </div>
 
     <script>
-        // Navigation function
+        // ===== NAVIGATION =====
         function navigateTo(nextPage) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(nextPage).classList.add('active');
             
-            // Create floating hearts when reaching page4
+            // Special effects for specific pages
             if (nextPage === 'page4') {
+                startTypewriter();
                 createHearts();
+                // Make entire page clickable to spawn hearts
+                document.getElementById('page4').addEventListener('click', createHeartAtPosition);
+            } else {
+                // Remove page4 click listener when leaving
+                document.getElementById('page4').removeEventListener('click', createHeartAtPosition);
             }
         }
 
-        // Navigation event listeners
+        // Page navigation event listeners
         document.getElementById('toPage2').addEventListener('click', () => navigateTo('page2'));
         
-        document.getElementById('toPage3').addEventListener('click', () => {
-            const password = document.getElementById('passwordInput').value;
-            if (password.toLowerCase() === 'mental') {
-                navigateTo('page3');
-                document.getElementById('errorMsg').style.display = 'none';
-            } else {
-                document.getElementById('errorMsg').style.display = 'block';
-            }
-        });
+        document.getElementById('toPage3').addEventListener('click', checkFirstPassword);
         
-        document.getElementById('toPage4').addEventListener('click', () => {
-            const page4Password = document.getElementById('page4Password').value;
-            if (page4Password.toLowerCase() === 'iloveyou') { // Change this to your preferred password
-                navigateTo('page4');
-                document.getElementById('page4Error').style.display = 'none';
-            } else {
-                document.getElementById('page4Error').style.display = 'block';
-            }
-        });
+        document.getElementById('toPage4').addEventListener('click', checkSecondPassword);
         
         document.getElementById('backToPage3').addEventListener('click', () => navigateTo('page3'));
 
-        // Floating hearts animation
+        // Allow Enter key for passwords
+        document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('toPage3').click();
+        });
+        
+        document.getElementById('page4Password').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('toPage4').click();
+        });
+
+        // ===== PAGE 1: POLAROID INTERACTION =====
+        function activatePolaroid(polaroid) {
+            // Toggle active state
+            polaroid.classList.toggle('active');
+            
+            // Reset after 1 second
+            setTimeout(() => {
+                polaroid.classList.remove('active');
+            }, 1000);
+        }
+
+        // ===== PAGE 2: PASSWORD EFFECTS =====
+        function checkFirstPassword() {
+            const password = document.getElementById('passwordInput').value;
+            const errorMsg = document.getElementById('errorMsg');
+            const inputField = document.getElementById('passwordInput');
+            
+            if (password.toLowerCase() === 'mental') {
+                // Success: Create mini hearts
+                createMiniHearts(10);
+                setTimeout(() => navigateTo('page3'), 800);
+                errorMsg.style.display = 'none';
+            } else {
+                // Error: Shake animation
+                inputField.classList.add('shake');
+                errorMsg.style.display = 'block';
+                setTimeout(() => inputField.classList.remove('shake'), 500);
+            }
+        }
+
+        // ===== PAGE 4 PASSWORD =====
+        function checkSecondPassword() {
+            const password = document.getElementById('page4Password').value;
+            const errorMsg = document.getElementById('page4Error');
+            
+            if (password.toLowerCase() === 'iloveyou') { // Change this password!
+                navigateTo('page4');
+                errorMsg.style.display = 'none';
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        // ===== PAGE 4: TYPEWRITER EFFECT =====
+        function startTypewriter() {
+            const fullText = document.querySelector('#page4 p').textContent;
+            const typewriterElement = document.getElementById('typewriter-text');
+            typewriterElement.textContent = '';
+            typewriterElement.style.opacity = 1;
+            
+            let i = 0;
+            const speed = 20; // Speed in milliseconds
+            
+            function typeWriter() {
+                if (i < fullText.length) {
+                    typewriterElement.textContent += fullText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                }
+            }
+            
+            typeWriter();
+        }
+
+        // ===== HEARTS ANIMATIONS =====
+        // Floating hearts for page4
         function createHearts() {
             const heartsContainer = document.getElementById('hearts-container');
             heartsContainer.innerHTML = '';
             
-            for (let i = 0; i < 20; i++) {
-                const heart = document.createElement('div');
-                heart.innerHTML = '❤️';
-                heart.classList.add('heart');
-                
-                // Random position and animation
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.top = Math.random() * 100 + 'vh';
-                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                heart.style.animationDelay = Math.random() * 2 + 's';
-                
-                heartsContainer.appendChild(heart);
+            for (let i = 0; i < 30; i++) {
+                createHeart(heartsContainer);
             }
         }
 
-        // Allow Enter key to submit passwords
-        document.getElementById('passwordInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                document.getElementById('toPage3').click();
+        // Single floating heart
+        function createHeart(container) {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.classList.add('heart');
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = Math.random() * 100 + 'vh';
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            
+            container.appendChild(heart);
+        }
+
+        // Mini hearts for password success
+        function createMiniHearts(count) {
+            const container = document.getElementById('page2');
+            
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤️';
+                    heart.classList.add('mini-heart');
+                    
+                    heart.style.left = (Math.random() * 50 + 25) + '%';
+                    heart.style.top = '100%';
+                    heart.style.color = `hsl(${Math.random() * 60 + 330}, 100%, 70%)`;
+                    
+                    container.appendChild(heart);
+                    
+                    // Remove after animation
+                    setTimeout(() => heart.remove(), 2000);
+                }, i * 100);
             }
-        });
-        
-        document.getElementById('page4Password').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                document.getElementById('toPage4').click();
-            }
+        }
+
+        // Click-to-create hearts on page4
+        function createHeartAtPosition(e) {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.classList.add('heart');
+            heart.style.left = e.clientX + 'px';
+            heart.style.top = e.clientY + 'px';
+            heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+            heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            
+            document.getElementById('hearts-container').appendChild(heart);
+            
+            // Remove after animation
+            setTimeout(() => heart.remove(), 2000);
+        }
+
+        // Initialize page1 with typed message (if needed)
+        document.addEventListener('DOMContentLoaded', () => {
+            // You can add any initialization code here
         });
     </script>
 </body>
