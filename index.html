@@ -207,8 +207,8 @@
         });
          document.getElementById('toPage4').addEventListener('click', () => navigateTo('page4'));
         document.getElementById('toPage5').addEventListener('click', () => {
-            const password = document.getElementById('passwordInput').value;
-            if (password === 'arshkeerthu') {
+            const password = document.getElementById('passwordInput').value.trim();
+            if (password === 'arshu') {
                 navigateTo('page5');
             } else {
                 alert('Incorrect password! Please try again.');
