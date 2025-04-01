@@ -200,7 +200,13 @@
                 alert('Incorrect password! Please try again.');
             }
         });
-        document.getElementById('toPage4').addEventListener('click', () => navigateTo('page4'));
+        document.getElementById('toPage4').addEventListener('click', () => {
+            const password = document.getElementById('passwordInput').value;
+            if (password === 'mental') { // Replace 'mental' with your desired password
+                navigateTo('page4');
+            } else {
+                alert('Incorrect password! Please try again.');
+            }
     </script>
 </body>
 </html>
