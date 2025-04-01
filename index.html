@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday</title>
+    <title>Happy Birthday Alagiyaee</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
     <style>
         body {
@@ -16,7 +16,7 @@
             overflow: hidden;
         }
 
-        h1 {
+        h1, h2 {
             font-family: 'Pacifico', cursive;
             color: #FF6F91;
             text-align: center;
@@ -63,14 +63,14 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px; /* Increased spacing for better visibility */
+            gap: 20px;
             margin: auto;
-            padding-bottom: 20px; /* Add padding at the bottom */
+            padding-bottom: 20px;
         }
 
         .polaroid {
-            width: 300px; /* Larger size for a cute mobile ratio */
-            aspect-ratio: 4 / 5; /* Maintain 4:5 aspect ratio */
+            width: 300px;
+            aspect-ratio: 4 / 5;
             background-color: white;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             border-radius: 12px;
@@ -81,7 +81,7 @@
         .polaroid img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Ensure the images maintain their aspect ratio */
+            object-fit: cover;
         }
 
         .polaroid:hover {
@@ -98,13 +98,59 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
 
+        /* New styles for Page 4 */
+        #page4-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #page4 p {
+            line-height: 1.8;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        .heart {
+            position: absolute;
+            pointer-events: none;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        /* Password page styling */
+        .password-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .password-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #FF6F91;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
         @media (max-width: 768px) {
-            h1 {
+            h1, h2 {
                 font-size: 1.8rem;
             }
 
             .polaroid {
-                width: 200px; /* Adjusted size for tablets/small screens */
+                width: 200px;
             }
 
             button {
@@ -118,12 +164,12 @@
         }
 
         @media (max-width: 480px) {
-            h1 {
+            h1, h2 {
                 font-size: 1.5rem;
             }
 
             .polaroid {
-                width: 200px; /* Mobile-friendly size */
+                width: 200px;
             }
 
             button {
@@ -134,10 +180,17 @@
             #videos video {
                 max-width: 250px;
             }
+
+            #page4 p {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Floating hearts (new element) -->
+    <div id="hearts-container"></div>
+
     <!-- Page 1 -->
     <div id="page1" class="page active">
         <h1>Happy Birthday Alagiyaee</h1>
@@ -160,14 +213,17 @@
 
     <!-- Page 2 -->
     <div id="page2" class="page">
-        <h2>Enter your first nickname</h2>
-        <input type="password" id="passwordInput" placeholder="Enter the password" style="margin: 10px auto; padding: 10px; font-size: 16px; width: 80%; border-radius: 8px; border: 2px solid #FF6F91;">
-        <button id="toPage3">Unlock past</button>
+        <div class="password-container">
+            <h2>Enter your first nickname</h2>
+            <input type="password" id="passwordInput" placeholder="Enter the password">
+            <button id="toPage3">Unlock past</button>
+            <p id="errorMsg" style="color: red; display: none;">Wrong password! Try again.</p>
+        </div>
     </div>
 
     <!-- Page 3 -->
     <div id="page3" class="page">
-        <h2>luv yewwwwwwww💗</h2>
+        <h2>HAPPY DAYS</h2>
         <div id="videos">
             <video src="video1.mp4" controls></video>
             <video src="video2.mp4" controls></video>
@@ -175,46 +231,97 @@
             <video src="video4.mp4" controls></video>
             <video src="video5.mp4" controls></video>
         </div>
-        <button id="toPage4">suprise</button>
+        
+        <!-- New password input for Page 4 -->
+        <div class="password-container" style="margin-top: 30px;">
+            <h3>One more secret for you</h3>
+            <input type="password" id="page4Password" placeholder="Enter our special word">
+            <button id="toPage4">Reveal My Heart</button>
+            <p id="page4Error" style="color: red; display: none;">Not the right word... think again!</p>
+        </div>
     </div>
-     <!-- Page 4 -->
+
+    <!-- Page 4 -->
     <div id="page4" class="page">
-        <h2>my password</h2>
-        <input type="password" id="passwordInput" placeholder="Enter the password" style="margin: 10px auto; padding: 10px; font-size: 16px; width: 80%; border-radius: 8px; border: 2px solid #FF6F91;">
-        <button id="toPage5">Unlock my words</button>
-    </div>
-    <!-- Page 5 -->
-    <div id="page5" class="page">
         <h2>Happy birthday Yen Alagiyaee</h2>
-        <p>Happy birthday Yen alagiyaeeee💗 Many more happy bdayyyyy ❤, Happyaaa iruga☺, I don’t know ena soldrade therla 😅, I think this msg won’t end like a bday msg 🙂. I literally don’t feel happy without your presence , satiyama avlo sirucha jollya irunda in the end Oru mariiii uruthite iruku ni pesama irukuradu . Literally avlo think pandra daily adhula unaku teriyadu , podra story like podra reels ellame related ah Vera varum . Oru mari heart heavy ah iruku inda msg la konjo erakiduva😅😂. I dont know yen inda sanda nu . Ni sona words . 1. Inimey ni8 pesika vena, 2. Respect panala 3. Importance tarala nu indirect ah , then na soli ni kuduka kudadu soldra . Promise ah idhu 3 me enala accept pana mudila , importance tarala , how can I accept 😂 na unkita pesradu mattum ta ni pakra . Oru naaliku una pathi evlo think panuva teriyadu 😮‍💨, day by day adu habit aaiduchu unaa pathu yartachu pesradu🙃 , my whole class know your name , oru girl kita un name soldra , ava kekra epo pathulum ava name soliyae ellartayum pesra nu 🫠. 2. Respect panala - ni sonanu yarkitaychu sona siripaga 😂. You really seeing my half side , epome una pathi ta enachu yosipan . Oru person ah value pandraduku text , meeting idula kedaiyadu Enaku teruju , you have to feel the presence . I feel your presence ni ilatiyum na feel panuva . Unaku kandipa en alavuku feel agadu adu mattum teriyum 😂 . Evlo Naal ni epd irunda teriyadu , may be konjo hurt aagirkala but en alavuku aairka matta coz you can fill my time and presence with someone’s . I don’t have anyone. And i dont want . Unaku ena Vda better peoples evlovo irukaga nalladu ta ✨inda msg una kova ta aakum Enaku teriyum 😂. Literally painful ah iruku nenachu nenachu alura. Yen IPd pesama irukanu. Ipo eluda poda kuda 😂 . 10000 or evlo sorry keka kuda na ready but doesn’t value me or heal you . Un reasons enala lifetime accept pana mudiyadu . Epome soldradu ta unkita pesama ta irupa una pathi nenaikama irundade ila . Na alura nu ni pesiduva sometimes adu Enaku vena . This time I’ll accept your wish , yen presence ta una hurt panudu na . I won’t hurt you anymore . Ipo kuda heart feels heavy valikudu🤣( Real time scenario ) Sorry en feel share panitu iruka un bday msg la (her mind voice : Adan ivlo panitiyae apro ena ) . But onething na pesama irukuradu ego va la ila promisgly , na pesi una again hurt pana virumbala unaku ipd irukuradu ta happya iruku na okay , be happy 💗 (hermindvoice : un puranam kada la yarum inga kekala 😂) and Happyyyy birthday , Remember one idiot is Always loving you , I can’t hate you . I just didn’t accept your reasons that doesn’t Mean i hate you , and I’ll always love yewwwww alagiyaeee 💕( you thinks like I’m avoid you sometimes , your the last person , no one will receive this much love from me . ❤😅🙂) and one thing inda msg idhula pathu mattum pesirada pls 😊I’ll always love you in different way there is no one loves you like that ..once again Happy birthday  keerthana 🥳 💕</p>
+        <div id="page4-content">
+            <p>Happy birthday Yen alagiyaeeee💗 Many more happy bdayyyyy ❤, Happyaaa iruga☺, I don't know ena soldrade therla 😅, I think this msg won't end like a bday msg 🙂. I literally don't feel happy without your presence , satiyama avlo sirucha jollya irunda in the end Oru mariiii uruthite iruku ni pesama irukuradu . Literally avlo think pandra daily adhula unaku teriyadu , podra story like podra reels ellame related ah Vera varum . Oru mari heart heavy ah iruku inda msg la konjo erakiduva😅😂. I dont know yen inda sanda nu . Ni sona words . 1. Inimey ni8 pesika vena, 2. Respect panala 3. Importance tarala nu indirect ah , then na soli ni kuduka kudadu soldra . Promise ah idhu 3 me enala accept pana mudila , importance tarala , how can I accept 😂 na unkita pesradu mattum ta ni pakra . Oru naaliku una pathi evlo think panuva teriyadu 😮‍💨, day by day adu habit aaiduchu unaa pathu yartachu pesradu🙃 , my whole class know your name , oru girl kita un name soldra , ava kekra epo pathulum ava name soliyae ellartayum pesra nu 🫠. 2. Respect panala - ni sonanu yarkitaychu sona siripaga 😂. You really seeing my half side , epome una pathi ta enachu yosipan . Oru person ah value pandraduku text , meeting idula kedaiyadu Enaku teruju , you have to feel the presence . I feel your presence ni ilatiyum na feel panuva . Unaku kandipa en alavuku feel agadu adu mattum teriyum 😂 . Evlo Naal ni epd irunda teriyadu , may be konjo hurt aagirkala but en alavuku aairka matta coz you can fill my time and presence with someone's . I don't have anyone. And i dont want . Unaku ena Vda better peoples evlovo irukaga nalladu ta ✨inda msg una kova ta aakum Enaku teriyum 😂. Literally painful ah iruku nenachu nenachu alura. Yen IPd pesama irukanu. Ipo eluda poda kuda 😂 . 10000 or evlo sorry keka kuda na ready but doesn't value me or heal you . Un reasons enala lifetime accept pana mudiyadu . Epome soldradu ta unkita pesama ta irupa una pathi nenaikama irundade ila . Na alura nu ni pesiduva sometimes adu Enaku vena . This time I'll accept your wish , yen presence ta una hurt panudu na . I won't hurt you anymore . Ipo kuda heart feels heavy valikudu🤣( Real time scenario ) Sorry en feel share panitu iruka un bday msg la (her mind voice : Adan ivlo panitiyae apro ena ) . But onething na pesama irukuradu ego va la ila promisgly , na pesi una again hurt pana virumbala unaku ipd irukuradu ta happya iruku na okay , be happy 💗 (hermindvoice : un puranam kada la yarum inga kekala 😂) and Happyyyy birthday , Remember one idiot is Always loving you , I can't hate you . I just didn't accept your reasons that doesn't Mean i hate you , and I'll always love yewwwww alagiyaeee 💕( you thinks like I'm avoid you sometimes , your the last person , no one will receive this much love from me . ❤😅🙂) and one thing inda msg idhula pathu mattum pesirada pls 😊I'll always love you in different way there is no one loves you like that ..once again Happy birthday keerthana 🥳 💕</p>
+        </div>
+        
+        <!-- Back button to return to videos -->
+        <button id="backToPage3" style="background: #6F91FF;">Back to Videos</button>
     </div>
 
     <script>
+        // Navigation function
         function navigateTo(nextPage) {
             document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
             document.getElementById(nextPage).classList.add('active');
+            
+            // Create floating hearts when reaching page4
+            if (nextPage === 'page4') {
+                createHearts();
+            }
         }
 
-        // Navigation logic
+        // Navigation event listeners
         document.getElementById('toPage2').addEventListener('click', () => navigateTo('page2'));
+        
         document.getElementById('toPage3').addEventListener('click', () => {
             const password = document.getElementById('passwordInput').value;
-            if (password === 'mental') {
+            if (password.toLowerCase() === 'mental') {
                 navigateTo('page3');
+                document.getElementById('errorMsg').style.display = 'none';
             } else {
-                alert('Incorrect password! Please try again.');
+                document.getElementById('errorMsg').style.display = 'block';
             }
         });
-         document.getElementById('toPage4').addEventListener('click', () => navigateTo('page4'));
-        document.getElementById('toPage5').addEventListener('click', () => {
-            const password = document.getElementById('passwordInput').value.trim();
-            if (password === 'arshu') {
-                navigateTo('page5');
+        
+        document.getElementById('toPage4').addEventListener('click', () => {
+            const page4Password = document.getElementById('page4Password').value;
+            if (page4Password.toLowerCase() === 'iloveyou') { // Change this to your preferred password
+                navigateTo('page4');
+                document.getElementById('page4Error').style.display = 'none';
             } else {
-                alert('Incorrect password! Please try again.');
+                document.getElementById('page4Error').style.display = 'block';
             }
         });
-        document.getElementById('toPage5').addEventListener('click', () => navigateTo('page5'));
+        
+        document.getElementById('backToPage3').addEventListener('click', () => navigateTo('page3'));
+
+        // Floating hearts animation
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts-container');
+            heartsContainer.innerHTML = '';
+            
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.classList.add('heart');
+                
+                // Random position and animation
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Allow Enter key to submit passwords
+        document.getElementById('passwordInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                document.getElementById('toPage3').click();
+            }
+        });
+        
+        document.getElementById('page4Password').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                document.getElementById('toPage4').click();
+            }
+        });
     </script>
 </body>
 </html>
